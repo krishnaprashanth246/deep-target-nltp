@@ -21,6 +21,7 @@
                             <div class="form-group">
                                 <label for="userInput">Enter Your Text for processing by CoreNLP library:</label>
                                 <textarea class="form-control" id="userInput" rows="5" placeholder="Type something..."></textarea>
+                                <small id="validationError" class="form-text text-danger d-none">Please enter at least one sentence.</small>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Submit</button>
                         </form>
@@ -39,7 +40,17 @@
         $(document).ready(function() {
             $('#userForm').on('submit', function(event) {
                 event.preventDefault();
-                let userInput = $('#userInput').val();
+                let userInput = $('#userInput').val().trim();
+                
+                // Validate input: not empty and contains at least one sentence
+                if (!userInput || !/[.!?]/.test(userInput)) {
+                    $('#validationError').removeClass('d-none');
+                    return;
+                } else {
+                    $('#validationError').addClass('d-none');
+                }
+
+                // AJAX request if input is valid
                 $.ajax({
                     url: '{{ url_for("annotate") }}',
                     type: 'POST',

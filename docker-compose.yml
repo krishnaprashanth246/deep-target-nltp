@@ -7,3 +7,12 @@ services:
       # target: builder
     ports: 
       - '8000:8000'
+    depends_on:
+      - corenlp
+    
+  corenlp:
+    image: nlpbox/corenlp
+    ports:
+      - '9000:9000'
+    environment:
+      - JAVA_XMX=3g
