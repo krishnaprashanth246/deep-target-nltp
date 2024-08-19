@@ -3,8 +3,9 @@
 
 ## Prerequisites
 - python3
+- pip (or pip3)
 - docker engine
-- docker compose
+- docker compose v2
 
 ## Dev Build and Deploy
 
